@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Busca Noticias</title>
+{% endblock titulo %}
+
+{% block css %}
+<!-- Alertas -->
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" id="theme-styles">
+<link rel="stylesheet" href="{% static 'css/EstiloGaleria.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+<div class="col-lg-8 mt-5" style="margin: auto;">
+    <table class="table table-white table-hover table-borderless mt-5">
+        <thead>
+            <tr class="table-white">
+                <th scope="col">
+                    <script>
+                        function validarcontacto() {
+                          let Query = document.getElementById("Query").value;
+                          if(Query.trim().length==0){
+                            Swal.fire({
+                                icon: 'Error',
+                                title: 'Debe Ingresar Algo',
+                              })
+                            return false;
+                          }
+                          return true;
+                        }
+                    </script>
+                    <form class="d-flex" role="search" method="post" onsubmit="return validarcontacto()">
+                        {% csrf_token %}
+                                <input class="form-control me-2" id="Query" for="Query" name="Query" type="search" placeholder="Buscar" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                            </div>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<section id="galeria" class="container">
+
+    <div class="row mt-5">
+        {% for i in articles %}
+        <div class="card rounded shadow-lg m-2 " style="width: 22rem;">
+            <a href="{{ i.url }}">
+            <img src="{{ i.urlToImage }}" class="card-img-top" alt="...">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">{{ i.title }}</h5>
+                <p class="card-text">{{ i.description }}</p>
+                <hr>
+                <small>Fecha: {{ i.publishedAt }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock contenido %}

@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Registro</title>
+  <!-- Libreria Bootstrap CSS-->
+  <link rel="stylesheet" href="{% static 'libs/BootStrap/css/bootstrap.min.css' %}">
+
+  <!-- Alertas -->
+  <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" id="theme-styles">
+
+  <!-- estilos -->
+  <link rel="stylesheet" href="{% static 'css/registro.css' %}">
+</head>
+
+<body>
+  <div class="icono">
+    <a href="{% url 'HOME' %}"><button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30"
+          height="30">
+          <path
+            d="M10.53 5.03a.75.75 0 10-1.06-1.06l-6.25 6.25a.75.75 0 000 1.06l6.25 6.25a.75.75 0 101.06-1.06L5.56 11.5H17a3.248 3.248 0 013.25 3.248v4.502a.75.75 0 001.5 0v-4.502A4.748 4.748 0 0017 10H5.56l4.97-4.97z">
+          </path>
+        </svg></button></a>
+  </div>
+  <p>volver al Inicio</p>
+  <div class="login">
+    <img src="{% static 'img/Logo Caos News.png' %}" class="avatar" alt="Avatar Image">
+    <h1>Registro</h1>
+    <script>
+      function validarcontacto() {
+        let correo = document.getElementById("txtCorreo").value;
+        if (correo.trim().length <= 3) {
+          Swal.fire({
+            icon: 'Error',
+            title: 'Debe Ingresar un Correo Valido',
+          })
+          return false;
+        }
+        let nombre = document.getElementById("txtNombre").value;
+        if (nombre.trim().length <= 2) {
+          Swal.fire({
+            icon: 'Error',
+            title: 'Debe Ingresar un Nombre Valido',
+          })
+          return false;
+        }
+        let Apellido = document.getElementById("txtApellido").value;
+        if (Apellido.trim().length <= 2) {
+          Swal.fire({
+            icon: 'Error',
+            title: 'Debe Ingresar un Apellido Valido',
+          })
+          return false;
+        }
+        let contra = document.getElementById("txtContra").value;
+        if (contra.trim().length <= 1) {
+          Swal.fire({
+            icon: 'Error',
+            title: 'Debe Ingresar una contraseña',
+          })
+          return false;
+        }
+        let contra2 = document.getElementById("txtContra2").value;
+        if (contra2.trim().length <= 1) {
+          Swal.fire({
+            icon: 'Error',
+            title: 'Debe Ingresar una contraseña',
+          })
+          return false;
+        }
+        if (contra2 != contra) {
+          Swal.fire({
+            icon: 'Error',
+            title: 'Las Contraseñas No Coinciden',
+          })
+          return false;
+        }
+        return true;
+      }
+    </script>
+    <form method="post" action="{% url 'REGIS' %}" onsubmit="return validarcontacto()">
+      {% csrf_token %}
+      <!-- correo -->
+      <label for="txtCorreo" class="form-label">* Correo electronico</label>
+      <input type="email" placeholder="Escribe tu Correo" id="txtCorreo" name="txtCorreo">
+      <!-- usuario -->
+      <label for="txtNombre">* Nombres</label>
+      <input type="text" placeholder="Escribe tu nombre" name="txtNombre" id="txtNombre">
+
+      <label for="txtApellido">* Apellidos</label>
+      <input type="text" placeholder="Escribe tu apellido" name="txtApellido" id="txtApellido">
+      <!-- contraseña -->
+      <label for="txtContra">* Contraseña</label>
+      <input type="password" placeholder="Escribir contraseña" name="txtContra" id="txtContra">
+      <!-- repetir contraseña -->
+      <label for="txtContra2">* Repetir contraseña</label>
+      <input type="password" placeholder="Escribir contraseña" name="txtContra" id="txtContra2">
+      <button type="submit" class="btn btn-primary">Registrarme</button>
+    </form>
+  </div>
+
+  <!--Libreria Bootstrap JS-->
+  <script src="{% static 'libs/BootStrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+</html>

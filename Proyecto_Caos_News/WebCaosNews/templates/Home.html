@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Caos New</title>
+{% endblock titulo %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/EstiloHome.css' %}">
+{% endblock css%}
+
+{% block contenido%}
+<!-- Categoria-->
+<div class="container mt-2">
+  <div class="row d-flex">
+    {% for cate in categoria %}
+    <div class="col col-lg-3 text-center">
+      <a href="/buscar_cate/{{cate.nombre}}/">
+        <img src="{{cate.imagen.url}}" class="bd-placeholder-img rounded-circle" width="80" height="80">
+      </a>
+      <h5 class="fw-normal">{{cate.nombre}}</h2>
+    </div><!-- /.col-lg-4 -->
+    {% endfor %}
+  </div><!-- /.row -->
+</div>
+
+<!--Separador-->
+
+
+<!--Carusel con fotitos-->
+<Div class="container-carusel mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h4> ULTIMAS CAOS NEWS </h4>
+    </div>
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- elemento principal -->
+        <div class="carousel-item active" data-bs-interval="2000">
+          <img src="{% static 'img/imagen.png' %}" class="d-block w-100" alt="..." style="height: 470px;">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Bienvenido a Caos News</h5>
+            <p>Desliza para ver las mejores las ultimas noticias</p>
+            <button class="btn btn-outline-light" onclick="ir2()">Ver</button>
+          </div>
+        </div>
+        {% for n in noticia_ultimas %}
+        <div class="carousel-item " data-bs-interval="2000">
+          <img src="{{n.imagen.url}}" class="d-block w-100" alt="" style="height: 470px;">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{n.titulo}}</h5>
+            <p>{{n.subtitulo}}</p>
+            <button class="btn btn-outline-light" onclick="ir('{{n.id_not}}')">Ver</button>
+          </div>
+        </div>
+        {% endfor %}
+        <script>
+          function ir(titulo) {
+            location.href = '/Noticia0/' + titulo + '/';
+          }
+          function ir2() {
+            location.href = '/Galeria/';
+          }
+        </script>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!--Separador-->
+<div class="separador text-center mt-5">
+  <h1> Mas noticias...</h1>
+</div>
+
+<!-- Noticias Pos Carrusel -->
+<Section id="galeria" class="container">
+  <div class="row">
+
+      {% for n in noticia_ultimas %}
+      <div class="col-lg-4">
+          <div class="card ">
+                  <img src="{{n.imagen.url}}" alt="">
+              <div class="card-body text-center">
+                  <p class="card-text ">{{n.titulo}}</p>
+                  <button class="btn btn-secondary" onclick="ir('{{n.id_not}}')">Ver noticia</button>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+      <script>
+          function ir(titulo) {
+            location.href = '/Noticia0/' + titulo + '/';
+          }
+        </script>
+  </div>
+
+</Section>
+
+<!--Separador-->
+<div class="separador">
+  <h1> </h1>
+</div>
+{% endblock contenido %}

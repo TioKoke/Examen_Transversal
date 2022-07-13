@@ -1,0 +1,28 @@
+
+
+#galeria img{
+    width: 100%;
+    height: 250px;
+}
+
+.col-lg-4{
+    margin-top: 40px;
+}
+
+.container .card::after{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    content:' ';
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 100%;
+    height: 100%;
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.separador{
+    margin: 5%;
+}

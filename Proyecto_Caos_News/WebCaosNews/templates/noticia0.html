@@ -1,0 +1,52 @@
+{% extends "base1.html" %}
+{% load static  %}
+
+{% block titulo %}
+  {% for n in noticia_obj %}
+    <title>{{n.titulo}}</title>
+  {% endfor %}
+{% endblock titulo %}
+
+{% block contenedor %}
+    {% for n in noticia_obj %}
+    <div class="contenedorT">
+      <div class="titulo">
+        <!-- titulo -->
+          <h1>{{n.titulo}}</h1>
+      </div>
+      <div class="datos">
+          Publicado por : {{n.nombre_usu}}<br>
+          Fecha de publicacion : {{n.register_date}} <br>
+          Categoria : {{n.nombre}}
+      </div>
+
+      <div class="contenedor ">
+        <div class="contenedorI justify-content-center">
+          <input id="submit" type="submit" value="Mas imagenes:" style="margin-top: 2em;">
+          {% for g in galeria %}
+          <div class="card" style="width: 18rem;">
+            <img src="{{g.imagen.url}}" class="card-img-top materialboxed" alt="...">
+            <div class="card-body">
+              <input id="submit2" type="submit" value="imagenenes">
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+        <!-- foto protada -->
+        <div class="contenedorP">
+          <div class="imagen">
+              <img src="{{n.imagen.url}}" alt="">
+              <!-- subtitulo -->
+              <p>{{n.subtitulo}}</p>
+          </div>
+
+          <!-- parrafo -->
+          <div class="parrafo">
+            {{n.historia}}
+          </div>
+        </div>
+      </div>
+  </div>
+  {% endfor %}
+{% endblock contenedor %}

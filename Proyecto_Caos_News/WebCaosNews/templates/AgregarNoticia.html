@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Agregar Noticia</title>
+{% endblock titulo %}
+
+{% block css %}
+<!-- Alertas -->
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" id="theme-styles">
+{% endblock css%}
+
+{% block contenido %}
+<div style="height: 100%; margin-top: 2em;">
+  <img src="{% static 'img/Logo Caos News.png' %}" style="width: 10%; margin-left: 43%;">
+</div>
+<!--Agregar Noticia-->
+<div style="margin: 4em; flex-wrap: wrap; display: flex;">
+  <script>
+    function validarcontacto() {
+      let titular = document.getElementById("txtTitular").value;
+      if (titular.trim().length <= 2) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar un Titular',
+        })
+        return false;
+      }
+      let escribir = document.getElementById("txtEscribir").value;
+      if (escribir.trim().length <= 2) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar un Cuerpo',
+        })
+        return false;
+      }
+      { let imagen = document.getElementById("txtImagen").value;
+      if (imagen == 0) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar una imagen',
+        })
+        return false;
+      }
+      return true; }
+    }
+  </script>
+  <form class="row g-3" onsubmit="return validarcontacto()" id="form-registro" action="{% url 'AGRE' %}" method="post"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-12">
+      <label for="txtTitular" class="form-label">* Titular</label>
+      <input type="txt" class="form-control" id="txtTitular" name="txtTitular">
+    </div>
+    <div class="col-12">
+      <label for="txtSubtitulo" class="form-label">* Sub Titulo</label>
+      <input type="txt" class="form-control" id="txtSubtitulo" name="txtSubtitulo">
+    </div>
+
+    <div class="col-12">
+      <label for="txtEscribir" class="form-label">* Cuerpo de la noticia</label>
+      <textarea class="form-control" id="txtEscribir" name="txtEscribir" rows="3"></textarea>
+    </div>
+
+    <div class="col-6">
+      <label for="txtUbicacion" class="form-label">* Ubicacion</label>
+      <input type="txt" class="form-control" id="txtUbicacion" name="txtUbicacion">
+    </div>
+
+    <div class="col-6">
+      <label for="cboCategoria" class="form-label">* Categoria</label>
+      <select class="form-select" name="cboCategoria" id="cboCategoria">
+        <option value="">Seleccione..</option>
+
+        {% for reg in items %}
+        <option value="{{reg.nombre}}">{{reg.nombre}}</option>
+        {% endfor %}
+
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="txtImagen" class="form-label">* Subir Imagen</label>
+      <input class="form-control" type="file" id="txtImagen" name="txtImagen">
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Agregar Noticia</button>
+    </div>
+  </form>
+</div>
+
+{% endblock contenido%}

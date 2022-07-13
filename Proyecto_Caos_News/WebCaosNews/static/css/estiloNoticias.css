@@ -1,0 +1,131 @@
+
+.titulo{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    margin-top: 2em;
+}
+.imagen img{
+    width: 100%;
+    box-shadow: 0px 1px 10px gray;
+    border-radius: 10px;
+}
+
+.imagen p{
+    text-align: justify;
+    font-size: x-large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 1em;
+}
+.parrafo p{
+    margin-left: 4em;
+    margin-top: 1em;
+    text-align: justify;
+    font-size: medium;
+}
+.contenedorP{
+    width: 65%;
+    margin-top: 2em;
+    
+}
+.contenedor {
+    width: 100%;
+    margin: auto;
+}
+.contenedorI{
+    width: 30%;
+    float: right;
+    flex-wrap: wrap;
+    display: flex;
+    height: auto;
+
+}
+.contenedorI img{
+    width: 80%;
+    height: auto;
+
+}
+.contenedorT {
+    width: 90%;
+    margin: auto;
+}
+
+.contenedor .contenedorI input[id="submit"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #b80f22;
+    color: #fff;
+    font-size: 100%;
+    width: 100%;
+    margin-top: 2em;
+    box-shadow: 0px 1px 10px gray;
+    border-radius: 10px;
+    
+}
+.contenedor .contenedorI input[id="submit1"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: cornflowerblue;
+    color: #fff;
+    font-size: 100%;
+    width: 100%;
+    margin-top: 2em;
+    text-align: center;
+    box-shadow: 0px 1px 10px gray;
+    border-radius: 10px;
+}
+.contenedor .contenedorI input[id="submit2"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: rgb(49, 49, 49);
+    color: #fff;
+    font-size: 100%;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 0px 1px 10px gray;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.contenedorI .col-lg-4 .card{
+    height: 250px;
+    width: 250px;
+    box-shadow: 0px 1px 10px gray;
+    overflow: hidden;
+}
+
+.contenedorI .col-lg-4{
+    margin-top: 2em;
+}
+
+.contenedorI .col-lg-4 .card img{
+    width: 80%;
+    height: 120px;
+    margin-left: 10%;
+    padding-top: 1em;
+    border-radius: 10px;
+}
+.contenedorI .card img{
+    width: 80%;
+    height: 150px;
+    margin-left: 10%;
+    padding-top: 1em;
+    border-radius: 10px;
+}
+.contenedorI .card {
+    margin-top: 2em;
+    box-shadow: 0px 1px 10px gray;
+    border-radius: 10px;
+}
+.contenedorI .card .card-body{
+    margin: auto;
+}
+.contenedorI .card .card-body p{
+    text-align: center;
+
+}
+footer{
+    margin-top: 2em;
+}

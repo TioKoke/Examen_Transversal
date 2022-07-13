@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Caos New</title>
+{% endblock titulo %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/Perfil.css' %}">
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" id="theme-styles">
+<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock css%}
+
+{% block contenido%}
+{% if user.is_authenticated %}
+    <form id="form-registro" action="{% url 'EDIPER' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <section class="seccion-perfil-usuario">
+            <div class="perfil-usuario-header">
+                <div class="perfil-usuario-portada contenedor-fondo-animado">
+                    <div class="animacion">
+                        <!--  -->
+                        <span class="uno"></span>
+                        <span class="dos"></span>
+                        <span class="tres"></span>
+                        <span class="cuatro"></span>
+                        <!--  -->
+                        <span class="uno"></span>
+                        <span class="dos"></span>
+                        <span class="tres"></span>
+                        <span class="cuatro"></span>
+                        <!--  -->
+                        <span class="uno"></span>
+                        <span class="dos"></span>
+                        <span class="tres"></span>
+                        <span class="cuatro"></span>
+                    </div>
+                    <div class="perfil-usuario-avatar">
+                        <img src="{{datos.profile_pic.url}}" alt="img-avatar">
+                        <div class="boton-avatar">
+                            <i class="far fa-image"><input type="file" class="cargar" id="txtImagen" name="txtImagen"></input></i>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="perfil-usuario-body">
+                <div class="perfil-usuario-bio justify-content-center">
+                    <input type="hidden" name="txtCorreo" id="txtCorreo" value="{{datos.email}}">
+                    <input type="txt" style="text-align: center; border-radius: 20px; width: 450px;" class="form-control titulo" id="txtNombre" name="txtNombre" value="{{datos.first_name}}">
+                    <input type="txt" style="text-align: center; border-radius: 20px; width: 450px;" class="form-control titulo" id="txtApellido" name="txtApellido" value="{{datos.last_name}}">
+                    <input type="txt" style="text-align: center; border-radius: 20px; width: 450px;" class="form-control texto" id="txtBio" name="txtBio" value="{{datos.bio}}">
+                </div>
+                <div class="perfil-usuario-footer">
+                    <ul class="lista-datos">
+                        <li><i class="icono fas fa-map-signs"></i> Correo: {{datos.email}}</li>
+                        <li><i class="icono fas fa-calendar-alt"></i> {{datos.register_date}}</li>
+                    </ul>
+                    <ul class="lista-datos">
+                        {% if user.is_staff %}
+                        <li><i class="icono fas fa-building"></i> Administrador </li>
+                        {% else %}
+                        <li><i class="icono fas fa-building"></i> Periodista </li>
+                        {% endif %}
+                        <li><i class="icono fas fa-user-check"></i>Publicaciones: {{cantidad}}</li>
+                    </ul>
+                </div>
+                <div class="col-3 mt-5 justify-content-center ">
+                    <button class=" btn btn-dark" type="submit">Modificar Perfil</button>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endif %}
+{% endblock contenido %}

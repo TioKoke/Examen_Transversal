@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Caos New</title>
+{% endblock titulo %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/Perfil.css' %}">
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" id="theme-styles">
+<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock css%}
+
+{% block contenido%}
+{% if user.is_authenticated %}
+    <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-header">
+            <div class="perfil-usuario-portada contenedor-fondo-animado">
+                <div class="animacion">
+                    <!--  -->
+                    <span class="uno"></span>
+                    <span class="dos"></span>
+                    <span class="tres"></span>
+                    <span class="cuatro"></span>
+                    <!--  -->
+                    <span class="uno"></span>
+                    <span class="dos"></span>
+                    <span class="tres"></span>
+                    <span class="cuatro"></span>
+                    <!--  -->
+                    <span class="uno"></span>
+                    <span class="dos"></span>
+                    <span class="tres"></span>
+                    <span class="cuatro"></span>
+                </div>
+                <div class="perfil-usuario-avatar">
+                    <img src="{{datos.profile_pic.url}}" alt="img-avatar">
+                </div>
+                <form action="{% url 'EDIPER' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <button type="submit" class="boton-portada">
+                        <i class="far fa-user-check"></i> Editar Perfil
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="perfil-usuario-body">
+            <div class="perfil-usuario-bio justify-content-center">
+                <h3 class="titulo">{{datos.first_name}} {{datos.last_name}}</h3>
+                <p class="texto">{{datos.bio}}</p>
+            </div>
+            <div class="perfil-usuario-footer">
+                <ul class="lista-datos">
+                    <li><i class="icono fas fa-map-signs"></i> Correo: {{datos.email}}</li>
+                    <li><i class="icono fas fa-calendar-alt"></i> {{datos.register_date}}</li>
+                </ul>
+                <ul class="lista-datos">
+                    {% if datos.is_staff %}
+                    <li><i class="icono fas fa-building"></i> Administrador </li>
+                    {% else %}
+                    <li><i class="icono fas fa-building"></i> Periodista </li>
+                    {% endif %}
+                    <li><i class="icono fas fa-user-check"></i>Publicaciones: {{cantidad}}</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="row mt-5">
+            {% for reg in noticias %}
+                <div class="col-lg-4">
+                    <div class="card">
+                            <img src="{{reg.imagen.url}}" alt="" style="height: 250px;">
+                        <div class="card-body justify-content-center text-center">
+                            <b class="card-text" >{{reg.titulo}}</b>
+                            <p class="text-center fs-6 fst-italic mt-1">{{reg.comentario}}</p>
+                            <div class="container justify-content-center  d-flex">
+                            {% if reg.publicar %}
+                                <p class="btn mx-3 shadow-lg bg-success text-white">Publicado</p>
+                            {% else %}
+                                <p class="btn mx-3 shadow-lg bg-danger text-white">No Publicado</p>
+                            {% endif %}
+                            </div>
+                            <div class="container justify-content-center d-flex">
+                                <button class="mx-1 btn btn-dark" onclick="eliminar('{{reg.titulo}}')">Eliminar</button>
+                                <button class="mx-1 btn btn-dark" onclick="modificar('{{reg.titulo}}')">Modificar</button>
+                                <button class="mx-1 btn btn-dark" onclick="galeria('{{reg.id_not}}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Foto</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %} 
+        </div>
+    </div>
+    <script>
+        function eliminar(titulo) {
+            Swal.fire({
+                title: '¿Desea eliminar la noticia ' + titulo + '?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Borrar',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('eliminado!', '', 'success')
+                    location.href = '/eliminar/' + titulo + '/';
+                }
+            })
+        }
+
+        function modificar(titulo) {
+            location.href = '/modificar/' + titulo + '/';
+        }
+
+        function galeria(titulo) {
+            document.getElementById("txtIdnot").value = titulo;
+        }
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Fotos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{% url 'INSERT' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="modal-body">
+                            <input type="hidden" name="txtIdnot" id="txtIdnot" >
+                            <input type="file" name="txtImagen" id="txtImagen" style="margin-top: 1em;">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Grabar</button>
+                        </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+{% endblock contenido %}

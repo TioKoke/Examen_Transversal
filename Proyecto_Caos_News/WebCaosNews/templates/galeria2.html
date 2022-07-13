@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Busqueda</title>
+{% endblock titulo %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/EstiloGaleria.css' %}">
+{% endblock css%}
+
+{% block contenido %}
+<Section id="galeria" class="container">
+    <div class="text-center pt-5">
+        <h1>{{mensaje}}</h1>
+    </div>
+    <div class="row">
+
+        {% for n in noticia %}
+        <div class="col-lg-4">
+            <div class="card">
+                    <img src="{{n.imagen.url}}" alt="">
+                <div class="card-body text-center">
+                    <p class="card-text">{{n.titulo}}</p>
+                    <button class="btn btn-secondary" onclick="ir('{{n.id_not}}')">Ver noticia</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <script>
+            function ir(titulo) {
+              location.href = '/Noticia0/' + titulo + '/';
+            }
+          </script>
+    </div>
+
+</Section>
+
+<!--Separador-->
+<div class="separador">
+    <h1>
+
+    </h1>
+</div>
+{% endblock contenido%}

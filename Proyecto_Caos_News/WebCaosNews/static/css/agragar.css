@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100vh;
+}
+
+.login {
+  margin-top: 2em;
+  width: 1000px;
+  height: 550px;
+  color: #fff;
+  margin: auto;
+  background-color: beige;
+  padding: 2em;
+
+}
+
+.login h1 {
+  margin-top: 3em;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+  color: #000;
+}
+
+.login label {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  display: block;
+  color: #000;
+}
+
+.login input {
+  width: 100%;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.login input[type="text"], .login input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: rgb(3, 3, 3);
+  font-size: 16px;
+}
+
+.login input[type="button"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #b80f22;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+.login input[type="button"]:hover {
+  cursor: pointer;
+  background: #ffc107;
+  color: #000;
+}

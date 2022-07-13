@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Contacto</title>
+{% endblock titulo %}
+
+{% block css %}
+<!-- Alertas -->
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" id="theme-styles">
+{% endblock css %}
+
+{% block contenido %}
+<div style="height: 100%; margin-top: 2em;">
+  <img src="{% static 'img/Contactanos.png' %}" style="width: 20%;">
+</div>
+<!--Contactanos-->
+<div style="margin: 4em; flex-wrap: wrap; display: flex;">
+  <script>
+    function validarcontacto() {
+      let rut = document.getElementById("txtRut").value;
+      if (rut.trim().length <= 9) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar Su Rut'
+        })
+        return false;
+      }
+      let nom = document.getElementById("txtNombre").value;
+      if (nom.trim().length <= 2) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar Su Nombre'
+        })
+        return false;
+      }
+      let correo = document.getElementById("txtCorreo").value;
+      if (correo.trim().length <= 10) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar Su Correo'
+        })
+        return false;
+      }
+      let fono = document.getElementById("txtFono").value;
+      if (fono.trim().length <= 7) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar Su Telefono'
+        })
+        return false;
+      }
+      let regi = document.getElementById("txtRegion").value;
+      if (regi == 'Seleccione') {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Seleccionar una region'
+        })
+        return false;
+      }
+      let ciu = document.getElementById("txtCiudad").value;
+      if (ciu.trim().length <= 3) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Ingresar Su Ciudad'
+        })
+        return false;
+      }
+      if(document.getElementById("gridCheck").checked == false ) {
+        Swal.fire({
+          icon: 'Error',
+          title: 'Debe Aceptar Los Terminos'
+        })
+        return false;
+      }
+      return true;
+    }
+  </script>
+  <form action="{% url 'CONT' %}" class="row g-3" onsubmit="return validarcontacto()" method="post"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-12">
+      <label for="txtRut" class="form-label">* Rut</label>
+      <input type="text" class="form-control" name="txtRut" id="txtRut" placeholder="Ej: (12345678-9)">
+    </div>
+    <div class="col-12">
+      <label for="txtNombre" class="form-label">* Nombre</label>
+      <input type="text" class="form-control" name="txtNombre" id="txtNombre">
+    </div>
+    <div class="col-12">
+      <label for="txtCorreo" class="form-label">* Correo electronico</label>
+      <input type="email" name="txtCorreo" id="txtCorreo" class="form-control" name="txtCorreo"
+        placeholder="Escribir correo">
+    </div>
+    <div class="col-12">
+      <label for="txtFono" class="form-label">* Telefono</label>
+      <input type="text" class="form-control" name="txtFono" id="txtFono" placeholder="Ej: (+56 9 7240 8060)">
+    </div>
+    <div class="col-md-4">
+      <label for="txtRegion" class="form-label">* Region</label>
+      <select type="select" name="txtRegion" id="txtRegion" class="form-select">
+        <option>Seleccione</option>
+        <option>Arica-Parinacota</option>
+        <option>Tarapacá</option>
+        <option>Atacama</option>
+        <option>Coquimbo</option>
+        <option>Valparaíso</option>
+        <option>Metropolitana</option>
+        <option>O'Higgins</option>
+        <option>Maule</option>
+        <option>Ñuble</option>
+        <option>Bío Bío</option>
+        <option>Araucanía</option>
+        <option>Los Ríos</option>
+        <option>Los Lagos</option>
+        <option>Aysén</option>
+        <option>Magallanes</option>
+        <option>Antártica Chilena</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="txtCiudad" class="form-label">* Ciudad</label>
+      <input type="text" class="form-control" name="txtCiudad" id="txtCiudad" placeholder="Ej: (Puente Asalto)">
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="gridCheck" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          * Accepto todos los terminos
+        </label>
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Registrarme</button>
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+    </div>
+  </form>
+</div>
+
+{% endblock contenido %}
